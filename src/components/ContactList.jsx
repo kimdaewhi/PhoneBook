@@ -1,15 +1,14 @@
 import React from 'react';
 import './ContactList.css';
 
-export default function ContactList({ contacts, selectedContact, setSelectedContact }) {
+export default function ContactList({ contacts, setSelectedContact }) {
     const handleAutoTextChange = () => {
         console.log("handleAutoTextChange");
     };
 
-    const handleCellClick = (name, phoneNumber, email) => {
-        console.log(name + ", " + phoneNumber + ", " + email);
-        // setSelectedContact(selectedContact);
-        setSelectedContact({name, phoneNumber, email});
+    const handleCellClick = (id, name, phoneNumber, email, gender) => {
+        console.log(id + ", " + name + ", " + phoneNumber + ", " + email + ", " + gender);
+        setSelectedContact({id, name, phoneNumber, email, gender});
     };
 
 
@@ -28,7 +27,7 @@ export default function ContactList({ contacts, selectedContact, setSelectedCont
                     {contacts.map((contact) => (
                         <tr 
                             key={contact.id}
-                            onClick={() => handleCellClick(contact.name, contact.phoneNumber, contact.email)}
+                            onClick={() => handleCellClick(contact.id, contact.name, contact.phoneNumber, contact.email, contact.gender)}
                         >
                             <td>{contact.name}</td>
                             <td>{contact.phoneNumber}</td>
