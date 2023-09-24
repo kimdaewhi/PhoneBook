@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './ContactDetailInfo.css'
 
-export default function ContactDetailInfo(props) {
+export default function ContactDetailInfo({ selectedContact, onUpdateContact }) {
     // 이메일 도메인 리스트
     const emailDomains = ['gmail.com', 
     'yahoo.com', 
@@ -13,19 +13,19 @@ export default function ContactDetailInfo(props) {
     'daum.net',
     'arsnal.co.uk' ];
 
-    const initialContact = props.selectedContact || {
-        id: props.selectedContact ? props.selectedContact.id : -1,
+    const initialContact = selectedContact || {
+        id: -1,
         name: "",
         phoneNumber: "",
         email: "",
         gender: "",
     };
 
+    // Hook 이용하여 변경될 때마다 정보 업데이트
     useEffect(() => {
-        setContact(props.selectedContact || initialContact);
-    }, [props.selectedContact]);
-    
-    // const [contact, setContact] = useState(initialContact);
+        setContact(selectedContact || initialContact);
+    }, [selectedContact]);
+
     const [contact, setContact] = useState({
         id: initialContact.id,
         name: "",
@@ -34,6 +34,8 @@ export default function ContactDetailInfo(props) {
         gender: "",
     });
 
+
+    // 새로 변경된 정보 contact에 저장
     const handleInputChange = (event) => {
         const { name, value } = event.target;
 
@@ -48,12 +50,21 @@ export default function ContactDetailInfo(props) {
         }
     };
 
+
+    // 변경된 정보 업데이트 및 콜백함수 호출하여 전달
     const handleUpdateClick = () => {
         // 변경된 값을 새로운 Contact 객체에 저장
-        console.log("contact : " + contact.id + ", " + contact.name + ", " + contact.phoneNumber + ", " + contact.email + ", " + contact.gender);
+        const updatedContact = {
+            ...contact,
+        };
+
+        console.log("updatedContact : " + updatedContact.id + ", " + updatedContact.name + ", " + updatedContact.phoneNumber + ", " + updatedContact.email + ", " + updatedContact.gender);
+        
+        // onUpdateContact 콜백 함수를 호출하여 변경된 연락처를 전달
+        onUpdateContact(updatedContact);
     };
 
-
+    
     return (
         <div>
             <h1>상 세 정 보</h1>

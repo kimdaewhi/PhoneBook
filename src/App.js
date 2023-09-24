@@ -16,6 +16,18 @@ function App() {
     const [selectedContact, setSelectedContact] = useState(null);
     const [contacts, setContacts] = useState(contactArr)
 
+    // 업데이트 함수
+    const updateContact = (updatedContact) => {
+        console.dir(updatedContact);
+        setContacts((prevContacts) =>
+            prevContacts.map((contact) =>
+                contact.id === updatedContact.id ? updatedContact : contact
+            )
+        );
+
+        alert("사용자 정보가 변경되었습니다.");
+    };
+
     return (
         <div className="App">
             <ContactContext.Provider value={{ selectedContact, setSelectedContact }}>
@@ -23,9 +35,11 @@ function App() {
 
                 <br />
                 <hr />
-                
+
                 <ContactDetailInfo 
-                    selectedContact={selectedContact} />
+                    selectedContact={selectedContact}
+                    onUpdateContact={updateContact}
+                />
             </ContactContext.Provider>
         </div>
     );
