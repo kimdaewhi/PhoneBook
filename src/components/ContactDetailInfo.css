@@ -21,26 +21,70 @@ div {
     font-weight: bold;
     font-size: 17px;
     margin: 3px;
-}
-
-.update-button {
-    background-color: #ff4545; /* 배경 색상을 원하는 색상으로 설정 */
-    color: white;
+    z-index: 1;
     position: relative;
     overflow: hidden;
+    cursor: pointer; /* 커서를 포인터로 변경 */
+
+    background-color: #ef0107;
+    color: white;
+
+    /* 트랜지션 효과 */
+    transition: all 0.3s ease, color 0.4s ease;
 }
 
-.update-button::before {
-    content: "";
+.custom-button:after {
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
+    content: "";
+    width: 0;
     height: 100%;
-    background-color: #ffcece2a; /* 커튼 애니메이션 색상을 설정 */
-    transition: left 0.5s ease; /* left 속성 전환 애니메이션 */
+    top: 0;
+    right: 0;
+    z-index: -1;
+    background-color: #023474;
+    border-radius: 5px;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 20px 0px rgba(0,0,0,.1),
+    4px 4px 5px 0px rgba(0,0,0,.1);
+    transition: all 0.3s ease;
+}
+.custom-button:hover {
+    color: #fff;
 }
 
-.update-button:hover::before {
-    left: 0; /* 마우스를 올리면 커튼 애니메이션을 보여줍니다. */
+.custom-button:hover:after {
+    left: 0;
+    width: 100%;
+}
+
+.custom-button:active {
+    top: 2px;
+}
+
+
+/* 버튼이 비활성화 상태일 때의 스타일 */
+.custom-button:disabled {
+    background-color: #dadada; /* 비활성화 배경 색상 */
+    color: #8d8d8d; /* 비활성화 텍스트 색상 */
+    cursor: not-allowed; /* 비활성화 상태에서 커서를 바꿉니다. */
+    transition: none;
+    pointer-events: none;
+}
+
+/* 비활성화 상태에서는 애니메이션 효과 비활성화 */
+.custom-button:disabled:after {
+    width: 0;
+}
+
+.custom-button:hover {
+    color: #fff;
+}
+
+.custom-button:hover:after {
+    left: 0;
+    width: 100%;
+}
+
+.custom-button:active {
+    top: 2px;
 }
