@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react'
 import './ContactList.css';
 
 export default function ContactList({ contacts, setSelectedContact }) {
-    const handleAutoTextChange = () => {
-        console.log("handleAutoTextChange");
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleAutoTextChange = (event) => {
+        const { value } = event.target;
+        setSearchTerm(value);
+
+        console.log("handleAutoTextChange : " + value);
     };
 
     const handleCellClick = (id, name, phoneNumber, email, birth, gender) => {
