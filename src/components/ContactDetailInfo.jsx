@@ -32,6 +32,8 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact, on
         gender: "",
     });
 
+    const [isNewContact, setIsNewContact] = useState(false);
+
     // Hook 이용하여 변경될 때마다 정보 업데이트
     useEffect(() => {
         setContact(selectedContact || initialContact);
@@ -76,6 +78,7 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact, on
 
     // 신규 사용자 생성
     const handleNewClick = () => {
+        setIsNewContact(true);
         // Callback 함수를 호출하여 새로운 ID의 신규 사용자 전달받음
         onNewContact();
     };
@@ -91,6 +94,7 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact, on
             + updatedContact.email + ", " + updatedContact.birth + ", " + updatedContact.gender);
 
         onUpdateContact(updatedContact);
+        setIsNewContact(false);
     }
 
     
@@ -151,9 +155,9 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact, on
             </div>
 
             <div>
-                <button className="update-button" onClick={handleUpdateClick}>변경사항 저장</button>
-                <button className="new-button" onClick={handleNewClick}>신규</button>
-                <button className="save-button" onClick={handleSaveClick}>저장</button>
+                <button className="custom-button new-button" onClick={handleNewClick}>신규</button>
+                <button className="custom-button save-button" onClick={handleSaveClick} disabled={!isNewContact}>저장</button>
+                <button className="custom-button update-button" onClick={handleUpdateClick}>변경사항 저장</button>
             </div>
             
         </div>

@@ -13,24 +13,17 @@ div {
 }
 
 
-@keyframes slideIn {
-    0% {
-        transform: translateX(-100%); /* 시작 위치: 왼쪽에서 시작 */
-        opacity: 0; /* 시작 시 투명도: 투명 */
-    }
-    100% {
-        transform: translateX(0); /* 종료 위치: 원래 위치 */
-        opacity: 1; /* 종료 시 투명도: 불투명 */
-    }
-}
-
-.update-button {
+.custom-button {
     width: 200px;
     height: 45px;
     border: none;
     font-family: 'Nanum Gothic', sans-serif;
     font-weight: bold;
     font-size: 17px;
+    margin: 3px;
+}
+
+.update-button {
     background-color: #ff4545; /* 배경 색상을 원하는 색상으로 설정 */
     color: white;
     position: relative;
