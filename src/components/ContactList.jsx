@@ -5,13 +5,18 @@ export default function ContactList({ contacts, setSelectedContact }) {
     const [searchTerm, setSearchTerm] = useState("");
 
 
-    // AutoText 이벤트
+    // 검색어 입력 핸들러
     const handleAutoTextChange = (event) => {
         const { value } = event.target;
         setSearchTerm(value);
 
         console.log("handleAutoTextChange : " + value);
     };
+
+    // 검색어를 포함하는 연락처 필터링
+    const filteredContacts = contacts.filter((contact) => 
+        contact.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
 
     // 테이블 row 클릭 이벤트
@@ -25,7 +30,7 @@ export default function ContactList({ contacts, setSelectedContact }) {
         <div>
             <h1>전화번호부</h1>
             검색{` : `}
-            <input className="input-search" type="text" onChange={handleAutoTextChange}/>
+            <input className="input-search" type="text" value={searchTerm} onChange={handleAutoTextChange}/>
 
             <table className="contactList">
                 <tbody>
@@ -35,7 +40,8 @@ export default function ContactList({ contacts, setSelectedContact }) {
                         <th>생년월일</th>
                         <th>성  별</th>
                     </tr>
-                    {contacts.map((contact) => (
+                    {/* contacts.map((contact) => ( */
+                        filteredContacts.map((contact) => (
                         <tr 
                             key={contact.id}
                             onClick={() => handleCellClick(contact.id, contact.name, contact.phoneNumber, contact.email, contact.birth, contact.gender)}
