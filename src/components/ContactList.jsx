@@ -32,28 +32,33 @@ export default function ContactList({ contacts, setSelectedContact }) {
             검색{` : `}
             <input className="input-search" type="text" value={searchTerm} onChange={handleAutoTextChange}/>
 
-            <table className="contactList">
-                <tbody>
-                    <tr>
-                        <th>이  름</th>
-                        <th>번  호</th>
-                        <th>생년월일</th>
-                        <th>성  별</th>
-                    </tr>
-                    {/* contacts.map((contact) => ( */
-                        filteredContacts.map((contact) => (
-                        <tr 
-                            key={contact.id}
-                            onClick={() => handleCellClick(contact.id, contact.name, contact.phoneNumber, contact.email, contact.birth, contact.gender)}
-                        >
-                            <td>{contact.name}</td>
-                            <td>{contact.phoneNumber}</td>
-                            <td>{contact.birth}</td>
-                            <td>{contact.gender === "M" ? "남자" : "여자"}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            {/* table에 scroll을 주기 위해 div로 감싼다. */}
+            <div>
+                <div className="contactListContainer">
+                    <table className="contactList">
+                        <tbody>
+                            <tr>
+                                <th className="name">이  름</th>
+                                <th className="phone">번  호</th>
+                                <th className="birth">생년월일</th>
+                                <th className="gender">성  별</th>
+                            </tr>
+                            {/* contacts.map((contact) => ( */
+                                filteredContacts.map((contact) => (
+                                <tr 
+                                    key={contact.id}
+                                    onClick={() => handleCellClick(contact.id, contact.name, contact.phoneNumber, contact.email, contact.birth, contact.gender)}
+                                >
+                                    <td>{contact.name}</td>
+                                    <td>{contact.phoneNumber}</td>
+                                    <td>{contact.birth}</td>
+                                    <td>{contact.gender === "M" ? "남자" : "여자"}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     )
 }
