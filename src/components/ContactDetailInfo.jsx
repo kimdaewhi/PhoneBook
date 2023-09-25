@@ -18,6 +18,7 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact }) 
         name: "",
         phoneNumber: "",
         email: "",
+        birth: "",
         gender: "",
     };
 
@@ -31,6 +32,7 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact }) 
         name: "",
         phoneNumber: "",
         email: "",
+        birth: "",
         gender: "",
     });
 
@@ -40,14 +42,16 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact }) 
         const { name, value } = event.target;
 
         if(name === "email" || name === "emailDomain") {
-            // 이메일 또는 이메일 도메인일 때는 두 개의 문자열 합쳐서 설정
+            // 속성 명이 이메일 또는 이메일 도메인일 때는 두 개의 문자열 합쳐서 설정
             const updatedEmail = name ==="email" ? value + "@" + contact.email.split('@')[1] : contact.email.split('@')[0] + "@" + value;
             setContact({...contact, email : updatedEmail})
         }
         else {
-            // 다른 항목에 대해서는 직접 값을 설정
+            // 다른 필드에 대해서는 직접 값을 설정
             setContact({ ...contact, [name]: value });
         }
+
+
     };
 
 
@@ -58,8 +62,9 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact }) 
             ...contact,
         };
 
-        console.log("updatedContact : " + updatedContact.id + ", " + updatedContact.name + ", " + updatedContact.phoneNumber + ", " + updatedContact.email + ", " + updatedContact.gender);
-        
+        console.log("updatedContact : " + updatedContact.id + ", " + updatedContact.name + ", " + updatedContact.phoneNumber + ", "
+            + updatedContact.email + ", " + updatedContact.birth + ", " + updatedContact.gender);
+
         // onUpdateContact 콜백 함수를 호출하여 변경된 연락처를 전달
         onUpdateContact(updatedContact);
     };
@@ -96,6 +101,11 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact }) 
             </div>
 
             <div>
+                <b>{`생 년 월 일  `}</b>
+                <input name="birth" value={contact.birth} onChange={handleInputChange}/>
+            </div>
+
+            <div>
                 <b>{`성     별  `}</b>
                 <label>
                     <input 
@@ -103,7 +113,7 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact }) 
                         name="gender"
                         value="M" 
                         checked={contact.gender === "M"} 
-                        onChange={handleInputChange}/>남성
+                        onChange={handleInputChange}/>남
                 </label>
                 <label>{`     `}</label>
                 <label>
@@ -112,7 +122,7 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact }) 
                         name="gender" 
                         value="F" 
                         checked={contact.gender === "F"} 
-                        onChange={handleInputChange}/>여성
+                        onChange={handleInputChange}/>여
                 </label>
             </div>
 

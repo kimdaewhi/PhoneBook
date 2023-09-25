@@ -6,9 +6,9 @@ export default function ContactList({ contacts, setSelectedContact }) {
         console.log("handleAutoTextChange");
     };
 
-    const handleCellClick = (id, name, phoneNumber, email, gender) => {
-        console.log(id + ", " + name + ", " + phoneNumber + ", " + email + ", " + gender);
-        setSelectedContact({id, name, phoneNumber, email, gender});
+    const handleCellClick = (id, name, phoneNumber, email, birth, gender) => {
+        console.log(id + ", " + name + ", " + phoneNumber + ", " + email + ", " + birth + ", " + gender);
+        setSelectedContact({id, name, phoneNumber, email, birth, gender});
     };
 
 
@@ -23,14 +23,18 @@ export default function ContactList({ contacts, setSelectedContact }) {
                     <tr>
                         <th>이  름</th>
                         <th>번  호</th>
+                        <th>생년월일</th>
+                        <th>성  별</th>
                     </tr>
                     {contacts.map((contact) => (
                         <tr 
                             key={contact.id}
-                            onClick={() => handleCellClick(contact.id, contact.name, contact.phoneNumber, contact.email, contact.gender)}
+                            onClick={() => handleCellClick(contact.id, contact.name, contact.phoneNumber, contact.email, contact.birth, contact.gender)}
                         >
                             <td>{contact.name}</td>
                             <td>{contact.phoneNumber}</td>
+                            <td>{contact.birth}</td>
+                            <td>{contact.gender === "M" ? "남자" : "여자"}</td>
                         </tr>
                     ))}
                 </tbody>
