@@ -11,6 +11,9 @@ function App() {
         {id: 1, name: "Declan Rice",        phoneNumber: "010-1234-5678", email: "declanrice@arsnal.co.uk",         birth: "1999.01.14", gender: "M"},
         {id: 2, name: "Gabriel Martinelli", phoneNumber: "010-9999-8888", email: "gabrielmartinelli@arsnal.co.uk",  birth: "2001.06.18", gender: "M"},
         {id: 3, name: "Martin Ødegaard",    phoneNumber: "010-2222-3333", email: "odegaard98@arsnal.co.uk",         birth: "1998.12.17", gender: "M"},
+        {id: 4, name: "Ben White",          phoneNumber: "010-3232-1534", email: "benwhite@arsnal.co.uk",           birth: "1997.10.08", gender: "M"},
+        {id: 5, name: "Thomas Partey",      phoneNumber: "010-0909-6677", email: "thomaspartey5@arsnal.co.uk",      birth: "1993.06.13", gender: "M"},
+        {id: 6, name: "Bukayo Saka",        phoneNumber: "010-5232-4467", email: "bukayosaka87@arsnal.co.uk",       birth: "2001.09.08", gender: "M"},
     ]
     
     const [selectedContact, setSelectedContact] = useState(null);
