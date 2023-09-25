@@ -4,6 +4,8 @@ import './ContactList.css';
 export default function ContactList({ contacts, setSelectedContact }) {
     const [searchTerm, setSearchTerm] = useState("");
 
+
+    // AutoText 이벤트
     const handleAutoTextChange = (event) => {
         const { value } = event.target;
         setSearchTerm(value);
@@ -11,6 +13,8 @@ export default function ContactList({ contacts, setSelectedContact }) {
         console.log("handleAutoTextChange : " + value);
     };
 
+
+    // 테이블 row 클릭 이벤트
     const handleCellClick = (id, name, phoneNumber, email, birth, gender) => {
         console.log(id + ", " + name + ", " + phoneNumber + ", " + email + ", " + birth + ", " + gender);
         setSelectedContact({id, name, phoneNumber, email, birth, gender});
