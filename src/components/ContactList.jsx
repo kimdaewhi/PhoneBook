@@ -36,23 +36,25 @@ export default function ContactList({ contacts, setSelectedContact }) {
             <div>
                 <div className="contactListContainer">
                     <table className="contactList">
-                        <tbody>
+                        <thead>
                             <tr>
-                                <th className="name">이  름</th>
-                                <th className="phone">번  호</th>
+                                <th className="name">이름</th>
+                                <th className="phone">번호</th>
                                 <th className="birth">생년월일</th>
-                                <th className="gender">성  별</th>
+                                <th className="gender">성별</th>
                             </tr>
+                        </thead>
+                        <tbody className="table-body">
                             {/* contacts.map((contact) => ( */
                                 filteredContacts.map((contact) => (
                                 <tr 
                                     key={contact.id}
                                     onClick={() => handleCellClick(contact.id, contact.name, contact.phoneNumber, contact.email, contact.birth, contact.gender)}
                                 >
-                                    <td>{contact.name}</td>
-                                    <td>{contact.phoneNumber}</td>
-                                    <td>{contact.birth}</td>
-                                    <td>{contact.gender === "M" ? "남자" : "여자"}</td>
+                                    <td className="name">{contact.name}</td>
+                                    <td className="phone">{contact.phoneNumber}</td>
+                                    <td className="birth">{contact.birth}</td>
+                                    <td className="gender">{contact.gender === "M" ? "남자" : "여자"}</td>
                                 </tr>
                             ))}
                         </tbody>
