@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './ContactDetailInfo.css'
 
-export default function ContactDetailInfo({ selectedContact, onUpdateContact }) {
+export default function ContactDetailInfo({ selectedContact, onUpdateContact, onNewContact }) {
     // 이메일 도메인 리스트
     const emailDomains = ['gmail.com', 
     'yahoo.com', 
@@ -22,11 +22,7 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact }) 
         gender: "",
     };
 
-    // Hook 이용하여 변경될 때마다 정보 업데이트
-    useEffect(() => {
-        setContact(selectedContact || initialContact);
-    }, [selectedContact]);
-
+    // 변경된 상세정보 
     const [contact, setContact] = useState({
         id: initialContact.id,
         name: "",
@@ -36,6 +32,13 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact }) 
         gender: "",
     });
 
+    // Hook 이용하여 변경될 때마다 정보 업데이트
+    useEffect(() => {
+        setContact(selectedContact || initialContact);
+    }, [selectedContact]);
+
+
+
 
     // 새로 변경된 정보 contact에 저장
     const handleInputChange = (event) => {
@@ -43,8 +46,9 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact }) 
 
         if(name === "email" || name === "emailDomain") {
             // 속성 명이 이메일 또는 이메일 도메인일 때는 두 개의 문자열 합쳐서 설정
-            const updatedEmail = name ==="email" ? value + "@" + contact.email.split('@')[1] : contact.email.split('@')[0] + "@" + value;
-            setContact({...contact, email : updatedEmail})
+            const currentEmail = contact.email || ''; // 기존 email이 없으면 빈 문자열로 초기화
+            const updatedEmail = name === "email" ? value + "@" + currentEmail.split('@')[1] : currentEmail.split('@')[0] + "@" + value;
+            setContact({ ...contact, email: updatedEmail });
         }
         else {
             // 다른 필드에 대해서는 직접 값을 설정
@@ -68,6 +72,26 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact }) 
         // onUpdateContact 콜백 함수를 호출하여 변경된 연락처를 전달
         onUpdateContact(updatedContact);
     };
+
+
+    // 신규 사용자 생성
+    const handleNewClick = () => {
+        // Callback 함수를 호출하여 새로운 ID의 신규 사용자 전달받음
+        onNewContact();
+    };
+
+
+    const handleSaveClick = () => {
+        // 새로운 Contact객체를 저장 및 Callback 함수 호출하여 신규 사용자 추가
+        const updatedContact = {
+            ...contact,
+        };
+        
+        console.log("handleSaveClick : " + updatedContact.id + ", " + updatedContact.name + ", " + updatedContact.phoneNumber + ", "
+            + updatedContact.email + ", " + updatedContact.birth + ", " + updatedContact.gender);
+
+        onUpdateContact(updatedContact);
+    }
 
     
     return (
@@ -128,6 +152,8 @@ export default function ContactDetailInfo({ selectedContact, onUpdateContact }) 
 
             <div>
                 <button className="update-button" onClick={handleUpdateClick}>변경사항 저장</button>
+                <button className="new-button" onClick={handleNewClick}>신규</button>
+                <button className="save-button" onClick={handleSaveClick}>저장</button>
             </div>
             
         </div>

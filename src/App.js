@@ -14,19 +14,50 @@ function App() {
     ]
     
     const [selectedContact, setSelectedContact] = useState(null);
-    const [contacts, setContacts] = useState(contactArr)
+    const [contacts, setContacts] = useState(contactArr);
 
-    // 업데이트 함수
+
+    // 신규 생성 ID 가져오기 및 전달
+    const handleNewClick = () => {
+        // Array에서 신규 사용자용 ID를 생성
+        const maxID = Math.max(...contacts.map((contact) => contact.id));
+
+        // 빈 contact 인스턴스에 전달
+        const newContact = {
+            id: maxID + 1,
+            name: "",
+            phoneNumber: "",
+            email: "",
+            birth: "",
+            gender: "",
+        };
+
+        setSelectedContact(newContact);
+    }
+    
+
+
+    // 업데이트 콜백 함수
     const updateContact = (updatedContact) => {
-        console.dir(updatedContact);
-        setContacts((prevContacts) =>
-            prevContacts.map((contact) =>
-                contact.id === updatedContact.id ? updatedContact : contact
-            )
-        );
+        // 기존 사용자 ID 목록
+        const existingContactIds = contacts.map((contact) => contact.id);
 
-        alert("사용자 정보가 변경되었습니다.");
+        if (existingContactIds.includes(updatedContact.id)) {
+            // 이미 존재하는 사용자의 경우, 정보를 업데이트
+            setContacts((prevContacts) =>
+                prevContacts.map((contact) =>
+                    contact.id === updatedContact.id ? updatedContact : contact
+                )
+            );
+            alert("사용자 정보가 변경되었습니다.");
+        } else {
+            // 신규 사용자의 경우, 정보를 추가
+            setContacts((prevContacts) => [...prevContacts, updatedContact]);
+            alert("새로운 사용자가 추가되었습니다.");
+        }
     };
+
+
 
     return (
         <div className="App">
@@ -39,6 +70,7 @@ function App() {
                 <ContactDetailInfo 
                     selectedContact={selectedContact}
                     onUpdateContact={updateContact}
+                    onNewContact={handleNewClick}
                 />
             </ContactContext.Provider>
         </div>
